@@ -1,26 +1,48 @@
-async function searchResults(query) {
-  const searchUrl = `https://vidsrc.to/search?query=${encodeURIComponent(query)}`;
-  const html = await fetch(searchUrl).then(res => res.text());
+export async function searchResults(query) {
+    const tmdbKey = "68e094699525b18a70bab2f86b1fa706";
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(query)}`;
 
-  const results = [];
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
+    const res = await fetch(url);
+    const json = await res.json();
+    const results = json.results.map(movie => ({
+        id: movie.id.toString(),
+        title: movie.title,
+        image: "https://image.tmdb.org/t/p/w500" + movie.poster_path,
+        description: movie.overview,
+    }));
 
-  const cards = doc.querySelectorAll('.video-block a[href*="/movie/"]');
+    return JSON.stringify(results);
+}
 
-  for (const card of cards) {
-    const title = card.querySelector('.name')?.textContent?.trim();
-    const poster = card.querySelector('img')?.getAttribute('data-src') || card.querySelector('img')?.src;
-    const url = card.href;
+export async function extractDetails(id) {
+    const tmdbKey = "68e094699525b18a70bab2f86b1fa706";
+    const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${tmdbKey}`;
 
-    if (title && url) {
-      results.push({
-        title,
-        image: poster,
-        url
-      });
-    }
-  }
+    const res = await fetch(url);
+    const movie = await res.json();
 
-  return JSON.stringify(results);
+    return JSON.stringify({
+        title: movie.title,
+        image: "https://image.tmdb.org/t/p/w500" + movie.poster_path,
+        description: movie.overview,
+        genres: movie.genres.map(g => g.name),
+    });
+}
+
+export async function extractEpisodes(id) {
+    return JSON.stringify([
+        {
+            id: id,
+            title: "Watch Now",
+        }
+    ]);
+}
+
+export async function extractStreamUrl(id) {
+    return JSON.stringify({
+        stream: `https://vidsrc.to/embed/movie/${id}`,
+        headers: {
+            Referer: "https://vidsrc.to/",
+        }
+    });
 }
