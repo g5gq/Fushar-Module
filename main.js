@@ -5,6 +5,12 @@ async function searchResults(keyword) {
     const results = [];
     const url = `https://www.fushaar.com/?s=${encodeURIComponent(keyword)}`;
     const response = await soraFetch(url);
+
+    if (!response || typeof response.text !== 'function') {
+        console.error("searchResults: Invalid response");
+        return JSON.stringify([]);
+    }
+
     const html = await response.text();
 
     const regex = /<a href="(https:\/\/www\.fushaar\.com\/movie\/[^"]+)"[^>]*>\s*<img src="([^"]+)"[^>]+alt="([^"]+)"/g;
@@ -23,6 +29,11 @@ async function searchResults(keyword) {
 
 async function extractDetails(url) {
     const response = await soraFetch(url);
+    if (!response || typeof response.text !== 'function') {
+        console.error("extractDetails: Invalid response");
+        return JSON.stringify([]);
+    }
+
     const html = await response.text();
 
     const descriptionMatch = html.match(/<div class="story">[\s\S]*?<p>(.*?)<\/p>/);
@@ -43,6 +54,11 @@ async function extractEpisodes(url) {
 
 async function extractStreamUrl(url) {
     const response = await soraFetch(url);
+    if (!response || typeof response.text !== 'function') {
+        console.error("extractStreamUrl: Invalid response");
+        return JSON.stringify({ streams: [], subtitles: [] });
+    }
+
     const html = await response.text();
 
     const iframeMatch = html.match(/<iframe[^>]+src="([^"]+player\.php\?id=\d+)"[^>]*>/);
@@ -64,14 +80,15 @@ async function extractStreamUrl(url) {
     });
 }
 
-async function soraFetch(url, options = { headers: {}, method: 'GET', body: null }) {
+async function soraFetch(url, options = {}) {
     try {
-        return await fetchv2(url, options.headers ?? {}, options.method ?? 'GET', options.body ?? null);
-    } catch {
-        try {
+        if (typeof fetchv2 !== "undefined") {
+            return await fetchv2(url, options.headers || {}, options.method || 'GET', options.body || null);
+        } else {
             return await fetch(url, options);
-        } catch {
-            return null;
         }
+    } catch (e) {
+        console.error("soraFetch failed:", url, e);
+        return null;
     }
 }
