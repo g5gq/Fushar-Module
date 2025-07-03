@@ -1,19 +1,19 @@
 {
     "sourceName": "Fushaar",
-    "iconUrl": "https://www.fushaar.com/favicon.ico",
+    "iconUrl": "https://raw.githubusercontent.com/g5gq/Fushar-Module/main/icon.png",
     "author": {
         "name": "nizar",
-        "icon": "https://raw.githubusercontent.com/xibrox/sora-movie-module/main/profile.jpg",
+        "icon": "https://raw.githubusercontent.com/g5gq/Fushar-Module/main/profile.jpg",
         "url": "https://github.com/g5gq"
     },
     "version": "1.0.0",
-    "language": "Arabic",
-    "streamType": "Iframe",
-    "quality": "720p/1080p",
-    "baseUrl": "https://www.fushaar.com/",
-    "searchBaseUrl": "https://www.fushaar.com/?s=%s",
-    "scriptUrl": "https://raw.githubusercontent.com/g5gq/Fushar-Module/refs/heads/main/main.js",
-    "type": "movies",
+    "language": "Arabic/English",
+    "streamType": "HLS",
+    "quality": "1080p",
+    "baseUrl": "https://fushaar.cam/",
+    "searchBaseUrl": "https://fushaar.cam/wp-json/dooplayer/search?s=%s",
+    "scriptUrl": "https://raw.githack.com/g5gq/Fushar-Module/main/main.js",
+    "type": "movies/shows",
     "asyncJS": true,
     "softsub": false
 }
