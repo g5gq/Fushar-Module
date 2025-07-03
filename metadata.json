@@ -12,7 +12,7 @@
     "quality": "1080p",
     "baseUrl": "https://fushaar.cam/",
     "searchBaseUrl": "https://fushaar.cam/wp-json/dooplayer/search?s=%s",
-    "scriptUrl": "https://raw.githack.com/g5gq/Fushar-Module/main/main.js",
+    "scriptUrl": "https://raw.githubusercontent.com/g5gq/Fushar-Module/refs/heads/main/main.js",
     "type": "movies/shows",
     "asyncJS": true,
     "softsub": false
