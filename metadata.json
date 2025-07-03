@@ -1,0 +1,19 @@
+{
+    "sourceName": "Fushaar",
+    "iconUrl": "https://www.fushaar.com/favicon.ico",
+    "author": {
+        "name": "nizar",
+        "icon": "https://avatars.githubusercontent.com/u/0000000", 
+        "url": "https://github.com/yourusername"
+    },
+    "version": "1.0.0",
+    "language": "Arabic",
+    "streamType": "Iframe",
+    "quality": "720p/1080p",
+    "baseUrl": "https://www.fushaar.com/",
+    "searchBaseUrl": "https://www.fushaar.com/?s=%s",
+    "scriptUrl": "https://your.github.raw.link/path/to/fushaar.js",
+    "type": "movies",
+    "asyncJS": true,
+    "softsub": false
+}
