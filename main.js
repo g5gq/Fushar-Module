@@ -1,3 +1,6 @@
+/* jshint esversion: 11 */
+/* global fetchv2 */
+
 async function searchResults(keyword) {
     const results = [];
     const url = `https://www.fushaar.com/?s=${encodeURIComponent(keyword)}`;
